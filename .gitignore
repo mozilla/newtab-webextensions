@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+# macOS directory config files
+**/.DS_Store
