@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "NewTabContent Dummy Section Extension",
+  "version": "1.0",
+  "description": "This is a description.",
+  "permissions": ["experiments.newTabContent"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "new_tab_section_options": {
+    "title": "Dummy Section",
+    "maxRows": 3,
+    "emptyState": {
+      "message": "Cupcake ipsum dolor sit amet caramels caramels. Powder jelly beans tart. Tootsie roll sesame snaps marzipan brownie jujubes. Lollipop jelly-o gingerbread.",
+      "icon": "check"
+    },
+    "infoOption": {
+      "header": "Red Pandas",
+      "body": "Find out more about the pandas on Wikipedia.",
+      "link": {
+        "href": "https://en.wikipedia.org/wiki/Red_panda",
+        "title": "Red pandas article"
+      }
+    }
+  }
+}

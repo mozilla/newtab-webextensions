@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "NewTabContent NYT Section Extension",
+  "version": "1.0",
+  "description": "This is a description.",
+  "permissions": [
+    "experiments.newTabContent",
+    "webRequest",
+    "https://api.nytimes.com/*"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "new_tab_section_options": {
+    "title": "New York Times Top Stories",
+    "maxRows": 1,
+    "emptyState": {
+      "message": "Cupcake ipsum dolor sit amet caramels caramels. Powder jelly beans tart. Tootsie roll sesame snaps marzipan brownie jujubes. Lollipop jelly-o gingerbread.",
+      "icon": "check"
+    }
+  }
+}
