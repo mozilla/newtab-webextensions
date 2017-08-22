@@ -2,14 +2,17 @@ module.exports = {
   // When adding items to this file please check for effects on sub-directories.
   "env": {
     "mocha": true,
-    "node": true,
+    "node": true
   },
   "globals": {
     "__CONFIG__": true,
     "platform_exports": true,
     "platform_require": true,
     "assert": true,
-    "sinon": true
+    "sinon": true,
+    "browser": true,
+    "API": true,
+    "ExtensionAPI": true
   },
   "plugins": [
     "json",
@@ -171,6 +174,7 @@ module.exports = {
     "sort-imports": 2,
     "sort-vars": 2,
     "space-in-parens": [2, "never"],
+    "space-before-function-paren": [2, {"anonymous": "never", "named": "never", "asyncArrow": "always"}],
     "strict": 0,
     "template-curly-spacing": [2, "never"],
     "unicode-bom": [2, "never"],

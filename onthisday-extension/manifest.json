@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "NewTabContent OnThisDay Section Extension",
+  "version": "1.0",
+  "description": "This is a description.",
+  "permissions": [
+    "experiments.newTabContent",
+    "webRequest",
+    "*://history.muffinlabs.com/*",
+    "https://en.wikipedia.org/*"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "web_accessible_resources": [
+    "wikipedia-icon.svg"
+  ],
+  "new_tab_section_options": {
+    "title": "On This Day",
+    "icon": "wikipedia-icon.svg",
+    "maxRows": 1,
+    "emptyState": {
+      "message": "Cupcake ipsum dolor sit amet caramels caramels. Powder jelly beans tart. Tootsie roll sesame snaps marzipan brownie jujubes. Lollipop jelly-o gingerbread.",
+      "icon": "check"
+    }
+  }
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "namespace": "manifest",
+    "types": [
+      {
+        "$extend": "WebExtensionManifest",
+        "properties": {
+          "new_tab_section_options": {
+            "type": "object",
+            "additionalProperties": {"$ref": "UnrecognizedProperty"},
+            "optional": true,
+            "properties": {
+              "title": {"type": "string", "optional": true, "pattern": ".*\\S.*"},
+              "icon": {"$ref": "IconPath", "optional": true},
+              "maxRows": {"type": "integer", "optional": true, "minimum": 1},
+              "emptyState": {
+                "type": "object",
+                "optional": true,
+                "properties": {
+                  "icon": {"$ref": "IconPath", "optional": true},
+                  "message": {"type": "string", "optional": true}
+                }
+              },
+              "infoOption": {
+                "type": "object",
+                "optional": true,
+                "properties": {
+                  "header": {"type": "string", "optional": true},
+                  "body": {"type": "string", "optional": true},
+                  "link": {
+                    "type": "object",
+                    "optional": true,
+                    "properties": {
+                      "href": {"type": "string"},
+                      "title": {"type": "string"}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  {
+    "namespace": "newTabContent",
+    "permissions": ["manifest:new_tab_section_options"],
+    "types": [
+      {
+        "id": "Card",
+        "type": "object",
+        "properties": {
+          "url": {"type": "string", "optional": true},
+          "title": {"type": "string"},
+          "description": {"type": "string", "optional": true},
+          "hostname": {"type": "string", "optional": true},
+          "type": {"type": "string", "optional": true},
+          "image": {"type": "string", "optional": true},
+          "context_menu_options": {
+            "type": "array",
+            "optional": true,
+            "items": {"type": "string"}
+          }
+        }
+      }
+    ],
+    "functions": [
+      {
+        "name": "setTitle",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "title",
+            "type": "string",
+            "pattern": ".*\\S.*"
+          }
+        ]
+      },
+      {
+        "name": "setIcon",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "icon",
+            "$ref": "IconPath"
+          }
+        ]
+      },
+      {
+        "name": "setMaxRows",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "setMaxRows",
+            "type": "integer",
+            "minimum": 1
+          }
+        ]
+      },
+      {
+        "name": "setEmptyState",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "emptyState",
+            "type": "object",
+            "properties": {
+              "icon": {"$ref": "IconPath", "optional": true},
+              "message": {"type": "string", "optional": true}
+            }
+          }
+        ]
+      },
+      {
+        "name": "setInfoOption",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "infoOption",
+            "type": "object",
+            "properties": {
+              "header": {"type": "string", "optional": true},
+              "body": {"type": "string", "optional": true},
+              "link": {
+                "type": "object",
+                "optional": true,
+                "properties": {
+                  "href": {"type": "string"},
+                  "title": {"type": "string"}
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "enableSection",
+        "type": "function",
+        "parameters": []
+      },
+      {
+        "name": "disableSection",
+        "type": "function",
+        "parameters": []
+      },
+      {
+        "name": "addCards",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "cards",
+            "type": "array",
+            "items": {"type": "object", "$ref": "Card"}
+          },
+          {
+            "name": "shouldBroadcast",
+            "type": "boolean",
+            "optional": "true"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onInitialized",
+        "type": "function",
+        "parameters": []
+      },
+      {
+        "name": "onUninitialized",
+        "type": "function",
+        "parameters": []
+      },
+      {
+        "name": "onAction",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "action",
+            "type": "string"
+          },
+          {
+            "name": "data",
+            "type": "any",
+            "optional": true
+          }
+        ]
+      },
+      {
+        "name": "onSystemTick",
+        "type": "function",
+        "parameters": []
+      },
+      {
+        "name": "onNewTabOpened",
+        "type": "function",
+        "parameters": []
+      }
+    ]
+  }
+]
