@@ -46,15 +46,15 @@ const update = async () => {
 };
 
 const init = async () => {
-  browser.newTabContent.enableSection();
   await update();
   browser.newTabContent.onSystemTick.addListener(update);
 };
 
 const uninit = async () => {
   browser.newTabContent.onSystemTick.removeListener(update);
-  browser.newTabContent.disableSection();
 };
 
 browser.newTabContent.onInitialized.addListener(init);
 browser.newTabContent.onUninitialized.addListener(uninit);
+
+browser.newTabContent.enable();

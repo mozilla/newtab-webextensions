@@ -55,12 +55,12 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
     const id = this.extension.id;
     const options = this.sectionOptions;
 
-    // If we dynamically update a section option, calling enable again will
-    // propagate the change to all existing section instances
-    const onUpdateOption = () => {
-      // eslint-disable-next-line no-use-before-define
-      if (SectionsManager.sections.has(id)) { newTabContent.enableSection(); }
-    };
+    const updateSection = () => SectionsManager.sections.has(id) &&
+      SectionsManager.updateSection(id, options, true);
+
+    // If we dynamically update a section option, propagate the change to
+    // Activity Stream
+    const onUpdateOption = () => SectionsManager.onceInitialized(updateSection);
 
     const newTabContent = {
       setTitle(title) {
@@ -88,36 +88,69 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
         onUpdateOption();
       },
 
-      enableSection() {
-        if (SectionsManager.initialized) {
+      // Terminology: in ActivityStream the `enabled` property toggles section
+      // visibility, allowing the user to hide sections they don't want to see
+      // (but the section is still there and will be shown in the pref pane).
+      // Here we use "enable" to mean "add the section to ActivityStream and
+      // then set `enabled` to be true". The second step is a workaround until
+      // ActivityStream is responsible for setting the `enabled` property based
+      // on whether the user had hidden the extension in the previous session.
+      enable() {
+        SectionsManager.onceInitialized(() => {
           SectionsManager.addSection(id, options);
-        }
+          SectionsManager.enableSection(id);
+        });
       },
 
-      disableSection() {
+      disable() {
         SectionsManager.removeSection(id);
       },
 
       addCards(cards, shouldBroadcast = false) {
         if (SectionsManager.sections.has(id)) {
-          SectionsManager.updateRows(id, cards, shouldBroadcast);
+          SectionsManager.updateSection(id, {rows: cards}, shouldBroadcast);
         }
       },
 
-      //  ActivityStream's SectionFeed enabled event
+      // Fired when the section is enabled
       onInitialized: new EventManager(context, "newTabContent.onInitialized", fire => {
-        // If already enabled, fire once
-        if (SectionsManager.initialized) { fire.async(); }
-        const listener = () => fire.async();
-        SectionsManager.on(SectionsManager.INIT, listener);
-        return () => SectionsManager.off(SectionsManager.INIT, listener);
+        // Either SectionsManager gets (re-)initialised with the section already
+        // registered and enabled, or the section gets enabled through user action.
+        const initListener = () =>
+          SectionsManager.sections.has(id) &&
+          SectionsManager.sections.get(id).enabled &&
+          fire.async();
+        const enabledListener = (_, enabledSection) =>
+          enabledSection === id && fire.async();
+
+        // If SectionsManager is already initialised and the section is enabled
+        // we should fire immediately
+        if (SectionsManager.initialized) { initListener(); }
+
+        SectionsManager.on(SectionsManager.INIT, initListener);
+        SectionsManager.on(SectionsManager.ENABLE_SECTION, enabledListener);
+
+        return () => {
+          SectionsManager.off(SectionsManager.INIT, initListener);
+          SectionsManager.off(SectionsManager.ENABLE_SECTION, enabledListener);
+        };
       }).api(),
 
-      // ActivityStream's SectionFeed disabled event
+      // Fired when the section is disabled
       onUninitialized: new EventManager(context, "newTabContent.onUninitialized", fire => {
-        const listener = () => fire.async();
-        SectionsManager.on(SectionsManager.UNINIT, listener);
-        return () => SectionsManager.off(SectionsManager.UNINIT, listener);
+        // Either SectionsManager gets uninitialised or the section gets
+        // disabled through user action.
+        const uninitListener = () => fire.async();
+        const disabledListener = (_, disabledSection) =>
+          disabledSection === id && fire.async();
+
+        SectionsManager.on(SectionsManager.UNINIT, uninitListener);
+        SectionsManager.on(SectionsManager.DISABLE_SECTION, disabledListener);
+
+        return () => {
+          SectionsManager.off(SectionsManager.UNINIT, uninitListener);
+          SectionsManager.off(SectionsManager.DISABLE_SECTION, disabledListener);
+        };
       }).api(),
 
       // All actions event
