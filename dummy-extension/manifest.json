@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "NewTabContent Dummy Section Extension",
+  "name": "Dummy Section Extension",
   "version": "1.0",
   "description": "This is a description.",
-  "permissions": ["experiments.newTabContent"],
+  "permissions": ["experiments.newTabSection"],
   "background": {
     "scripts": ["background.js"]
   },

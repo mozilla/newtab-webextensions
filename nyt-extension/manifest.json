@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
-  "name": "NewTabContent NYT Section Extension",
+  "name": "NYT Section Extension",
   "version": "1.0",
   "description": "This is a description.",
   "permissions": [
-    "experiments.newTabContent",
+    "experiments.newTabSection",
     "webRequest",
     "https://api.nytimes.com/*"
   ],

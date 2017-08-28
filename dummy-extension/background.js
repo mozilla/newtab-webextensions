@@ -25,19 +25,19 @@ const shuffle = array => {
 
 const updateCards = () => {
   shuffle(DUMMY_DATA);
-  browser.newTabContent.addCards(DUMMY_DATA, true);
+  browser.newTabSection.addCards(DUMMY_DATA, true);
 };
 
 const init = () => {
   updateCards();
-  browser.newTabContent.onSystemTick.addListener(updateCards);
+  browser.newTabSection.onSystemTick.addListener(updateCards);
 };
 
 const uninit = () => {
-  browser.newTabContent.onSystemTick.removeListener(updateCards);
+  browser.newTabSection.onSystemTick.removeListener(updateCards);
 };
 
-browser.newTabContent.onInitialized.addListener(init);
-browser.newTabContent.onUninitialized.addListener(uninit);
+browser.newTabSection.onInitialized.addListener(init);
+browser.newTabSection.onUninitialized.addListener(uninit);
 
-browser.newTabContent.enable();
+browser.newTabSection.enable();
