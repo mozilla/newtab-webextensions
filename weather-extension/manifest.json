@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "NewTabSection Weather Section Extension",
+  "version": "1.0",
+  "description": "This is a description.",
+  "permissions": [
+    "experiments.newTabSection",
+    "geolocation",
+    "webRequest",
+    "https://api.darksky.net/*"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "web_accessible_resources": [
+    "icons/*"
+  ],
+  "new_tab_section_options": {
+    "title": "Weather",
+    "icon": "icons/title-icon.svg",
+    "maxRows": 2,
+    "emptyState": {
+      "message": "Cupcake ipsum dolor sit amet caramels caramels. Powder jelly beans tart. Tootsie roll sesame snaps marzipan brownie jujubes. Lollipop jelly-o gingerbread.",
+      "icon": "check"
+    }
+  }
+}
