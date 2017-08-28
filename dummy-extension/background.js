@@ -29,15 +29,15 @@ const updateCards = () => {
 };
 
 const init = () => {
-  browser.newTabContent.enableSection();
   updateCards();
   browser.newTabContent.onSystemTick.addListener(updateCards);
 };
 
 const uninit = () => {
   browser.newTabContent.onSystemTick.removeListener(updateCards);
-  browser.newTabContent.disableSection();
 };
 
 browser.newTabContent.onInitialized.addListener(init);
 browser.newTabContent.onUninitialized.addListener(uninit);
+
+browser.newTabContent.enable();
