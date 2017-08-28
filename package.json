@@ -1,11 +1,11 @@
 {
-  "name": "newtab-content-extension",
+  "name": "newtab-webextensions",
   "version": "0.0.1",
-  "description": "A web extension to add custom content to the activity-stream version of new tab",
+  "description": "A WebExtensions API to add custom sections to the Activity Stream version of new tab",
   "author": "Mozilla (https://mozilla.org/)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mozilla/newtab-content-extension.git"
+    "url": "git+https://github.com/mozilla/newtab-webextensions.git"
   },
   "license": "MPL-2.0",
   "devDependencies": {

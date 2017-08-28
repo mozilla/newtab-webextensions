@@ -2,11 +2,11 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
-    <em:id>newTabContent@experiments.addons.mozilla.org</em:id>
-    <em:name>New Tab Content API</em:name>
+    <em:id>newTabSection@experiments.addons.mozilla.org</em:id>
+    <em:name>New Tab Section API</em:name>
     <em:type>256</em:type>
     <em:version>0.0.1</em:version>
-    <em:description>New tab content api</em:description>
+    <em:description>New tab section api</em:description>
     <em:creator>Mozilla</em:creator>
 
     <em:targetApplication>

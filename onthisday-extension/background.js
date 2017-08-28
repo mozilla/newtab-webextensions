@@ -60,11 +60,11 @@ const getData = async (forceBroadcast = false) => {
   if (!cards || dateString !== currentDate) {
     // If it's the next day then update and broadcast to existing tabs
     cards = await getCards(day, month);
-    browser.newTabContent.addCards(cards.slice(0, 20), true);
+    browser.newTabSection.addCards(cards.slice(0, 20), true);
     currentDate = dateString;
   } else {
     shuffle(cards);
-    browser.newTabContent.addCards(cards.slice(0, 20), forceBroadcast);
+    browser.newTabSection.addCards(cards.slice(0, 20), forceBroadcast);
   }
 };
 
@@ -81,14 +81,14 @@ const onAction = action => {
 
 const init = async () => {
   await getData(true);
-  browser.newTabContent.onAction.addListener(onAction);
+  browser.newTabSection.onAction.addListener(onAction);
 };
 
 const uninit = () => {
-  browser.newTabContent.onAction.removeListener(onAction);
+  browser.newTabSection.onAction.removeListener(onAction);
 };
 
-browser.newTabContent.onInitialized.addListener(init);
-browser.newTabContent.onUninitialized.addListener(uninit);
+browser.newTabSection.onInitialized.addListener(init);
+browser.newTabSection.onUninitialized.addListener(uninit);
 
-browser.newTabContent.enable();
+browser.newTabSection.enable();

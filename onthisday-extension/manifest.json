@@ -1,10 +1,10 @@
 {
   "manifest_version": 2,
-  "name": "NewTabContent OnThisDay Section Extension",
+  "name": "OnThisDay Section Extension",
   "version": "1.0",
   "description": "This is a description.",
   "permissions": [
-    "experiments.newTabContent",
+    "experiments.newTabSection",
     "webRequest",
     "*://history.muffinlabs.com/*",
     "https://en.wikipedia.org/*"

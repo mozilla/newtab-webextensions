@@ -1,12 +1,12 @@
-# newtab-content-extension
+# newtab-webextensions
 
-A web extension experiment to add custom content to the activity-stream version
-of the new tab page.
+A WebExtensions experiment to add custom sections to the Activity Stream version
+of the new tab page, and some example extensions consuming the API.
 
 ## Install and run
 
-The experiment depends on ActivityStream being present in Firefox. Updates may
-depend on ongoing ActivityStream development, so it's recommended to use an up
+The experiment depends on Activity Stream being present in Firefox. Updates may
+depend on ongoing Activity Stream development, so it's recommended to use an up
 to date version of Firefox Nightly.
 
 As the experiment is a legacy bootstrapped addon, the

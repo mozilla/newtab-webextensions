@@ -44,7 +44,7 @@
     ]
   },
   {
-    "namespace": "newTabContent",
+    "namespace": "newTabSection",
     "permissions": ["manifest:new_tab_section_options"],
     "types": [
       {

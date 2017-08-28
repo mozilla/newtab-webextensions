@@ -38,23 +38,23 @@ let cards;
 const update = async () => {
   if (!cards || Date.now() - lastUpdated > UPDATE_INTERVAL) {
     cards = await getCards();
-    browser.newTabContent.addCards(cards, true);
+    browser.newTabSection.addCards(cards, true);
     lastUpdated = Date.now();
   } else if (cards) {
-    browser.newTabContent.addCards(cards, true);
+    browser.newTabSection.addCards(cards, true);
   }
 };
 
 const init = async () => {
   await update();
-  browser.newTabContent.onSystemTick.addListener(update);
+  browser.newTabSection.onSystemTick.addListener(update);
 };
 
 const uninit = async () => {
-  browser.newTabContent.onSystemTick.removeListener(update);
+  browser.newTabSection.onSystemTick.removeListener(update);
 };
 
-browser.newTabContent.onInitialized.addListener(init);
-browser.newTabContent.onUninitialized.addListener(uninit);
+browser.newTabSection.onInitialized.addListener(init);
+browser.newTabSection.onUninitialized.addListener(uninit);
 
-browser.newTabContent.enable();
+browser.newTabSection.enable();
