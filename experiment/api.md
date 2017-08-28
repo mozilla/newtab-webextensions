@@ -7,16 +7,16 @@ Method | Parameters | Description
 `setMaxRows` | `maxRows`: a strictly positive integer | Set the (maximum) number of rows of cards to display in the section. Defaults to 1.
 `setEmptyState` | `emptyState`: an `EmptyState` object | Set the empty state.
 `setInfoOption` | `infoOption`: an `InfoOption` object | Set the info option.
-`enableSection` | | Add the section to the new tab page.
-`disableSection` | | Remove the section from the new tab page.
+`enable` | | Add the section to the new tab page.
+`disable` | | Remove the section from the new tab page.
 `addCards` | `cards`: an array of `Card` objects | Add cards for the section to display.
 
 ## API events
 
 Event | Parameters | Description
 --- | --- | ---
-`onInitialized` | | Fired when ActivityStream initialises and sections can be added.
-`onUninitialized` | | Fired when ActivityStream uninitialises.
+`onInitialized` | | Fired when the section is added or re-enabled.
+`onUninitialized` | | Fired when the section is removed or disabled.
 `onAction` | `action`: the name of the action<br/>`data`: any data associated with the action | Fired when any whitelisted ActivityStream action is received.
 `onSystemTick` | | Fired on the ActivityStream system-tick event at a set interval (currently every five minutes).
 `onNewTabOpened` | | Fired when a new tab is opened.

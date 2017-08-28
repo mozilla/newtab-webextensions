@@ -1,6 +1,3 @@
-// 5 minutes
-const UPDATE_INTERVAL =  5 * 60 * 1000;
-
 const getImages = titles =>
   new Promise((resolve, reject) => {
     const req = new XMLHttpRequest();
@@ -53,10 +50,9 @@ const getCards = (day, month) =>
   });
 
 let currentDate;
-let lastUpdated;
 let cards;
 
-const getData = async (forceRefresh = false) => {
+const getData = async (forceBroadcast = false) => {
   const date = new Date();
   const day = date.getDate();
   const month = date.getMonth() + 1;
@@ -66,12 +62,9 @@ const getData = async (forceRefresh = false) => {
     cards = await getCards(day, month);
     browser.newTabContent.addCards(cards.slice(0, 20), true);
     currentDate = dateString;
-    lastUpdated = date;
-  } else if (forceRefresh || date - lastUpdated >= UPDATE_INTERVAL) {
-    // If it's been a while or we forceRefresh then update only new tabs
+  } else {
     shuffle(cards);
-    browser.newTabContent.addCards(cards.slice(0, 20), false);
-    lastUpdated = date;
+    browser.newTabContent.addCards(cards.slice(0, 20), forceBroadcast);
   }
 };
 
@@ -81,21 +74,21 @@ const onAction = action => {
       getData();
       break;
     case "NewTabOpened":
-      getData(true);
+      getData();
       break;
   }
 };
 
 const init = async () => {
-  browser.newTabContent.enableSection();
-  await getData();
+  await getData(true);
   browser.newTabContent.onAction.addListener(onAction);
 };
 
 const uninit = () => {
   browser.newTabContent.onAction.removeListener(onAction);
-  browser.newTabContent.disableSection();
 };
 
 browser.newTabContent.onInitialized.addListener(init);
 browser.newTabContent.onUninitialized.addListener(uninit);
+
+browser.newTabContent.enable();

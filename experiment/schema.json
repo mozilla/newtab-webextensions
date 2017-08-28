@@ -135,12 +135,12 @@
         ]
       },
       {
-        "name": "enableSection",
+        "name": "enable",
         "type": "function",
         "parameters": []
       },
       {
-        "name": "disableSection",
+        "name": "disable",
         "type": "function",
         "parameters": []
       },

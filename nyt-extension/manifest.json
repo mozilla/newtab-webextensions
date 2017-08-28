@@ -12,7 +12,7 @@
     "scripts": ["background.js"]
   },
   "new_tab_section_options": {
-    "title": "New York Times Top Stories",
+    "title": "New York Times",
     "maxRows": 1,
     "emptyState": {
       "message": "Cupcake ipsum dolor sit amet caramels caramels. Powder jelly beans tart. Tootsie roll sesame snaps marzipan brownie jujubes. Lollipop jelly-o gingerbread.",
