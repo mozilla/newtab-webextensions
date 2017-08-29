@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      body {
+        font-size: 14px;
+      }
+      section {
+        margin: 10px 0px;
+      }
+      label {
+        margin-right: 5px;
+      }
+      input[type="select"] {
+        font-size: 14px;
+        margin: 5px;
+      }
+      input[type=number] {
+        width: 75px;
+        -moz-appearance: textfield;
+      }
+      input[type="button"] {
+        width: 100px;
+        padding: 5px;
+        margin: 10px 0px;
+      }
+    </style>
+  </head>
+    <body>
+      <section>
+        <label class="title" for="section">Section</label>
+        <select id="section">
+          <option value="home">Home</option>
+          <option value="opinion">Opinion</option>
+          <option value="world">World</option>
+          <option value="national">National</option>
+          <option value="politics">Politics</option>
+          <option value="upshot">Upshot</option>
+          <option value="nyregion">NY Region</option>
+          <option value="business">Business</option>
+          <option value="technology">Technology</option>
+          <option value="science">Science</option>
+          <option value="health">Health</option>
+          <option value="sports">Sports</option>
+          <option value="arts">Arts</option>
+          <option value="books">Books</option>
+          <option value="movies">Movies</option>
+          <option value="theater">Theater</option>
+          <option value="sundayreview">Sunday Review</option>
+          <option value="fashion">Fashion</option>
+          <option value="tmagazine">T Magazine</option>
+          <option value="food">Food</option>
+          <option value="travel">Travel</option>
+          <option value="magazine">Magazine</option>
+          <option value="realestate">Real Estate</option>
+          <option value="automobiles">Automobiles</option>
+          <option value="obituaries">Obituaries</option>
+          <option value="insider">Insider</option>
+        </select>
+      </section>
+      <section>
+        <span class="title">Source</span>
+        <input id="top-stories" name="source" type="radio" />
+        <label for="top-stories">Top Stories</label>
+        <input id="most-popular" name="source" type="radio" />
+        <label id="most-popular-label" for="most-popular">Most Popular</label>
+      </section>
+      <section>
+        <span class="title">Number of rows to display</span>
+        <input id="max-rows" type="number" min="1" max="10" />
+      </section>
+      <input id="save-button" type="button" value="Save" />
+      <script src="options.js"></script>
+    </body>
+</html>

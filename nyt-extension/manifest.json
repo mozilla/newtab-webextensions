@@ -6,14 +6,30 @@
   "permissions": [
     "experiments.newTabSection",
     "webRequest",
+    "storage",
     "https://api.nytimes.com/*"
   ],
   "background": {
     "scripts": ["background.js"]
   },
+  "web_accessible_resources": [
+    "nyt-icon.png"
+  ],
+  "options_ui": {
+    "page": "options.html"
+  },
   "new_tab_section_options": {
     "title": "New York Times",
     "maxRows": 1,
+    "icon": "nyt-icon.png",
+    "infoOption": {
+      "header": "Attribution",
+      "body": "Data provided by The New York Times",
+      "link": {
+        "href": "http://developer.nytimes.com",
+        "title": "http://developer.nytimes.com"
+      }
+    },
     "emptyState": {
       "message": "Cupcake ipsum dolor sit amet caramels caramels. Powder jelly beans tart. Tootsie roll sesame snaps marzipan brownie jujubes. Lollipop jelly-o gingerbread.",
       "icon": "check"
