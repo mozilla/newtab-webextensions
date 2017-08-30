@@ -42,8 +42,13 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
       }
     }, manifestOptions);
 
-    if (this.sectionOptions.icon && !this.sectionOptions.icon.startsWith("moz-extension://")) {
-      this.sectionOptions.icon = this.extension.getURL(this.sectionOptions.icon);
+    this.wrapExtensionUrl(this.sectionOptions, "icon");
+    this.wrapExtensionUrl(this.sectionOptions.emptyState, "icon");
+  }
+
+  wrapExtensionUrl(object, prop) {
+    if (typeof object[prop] === "string" && !object[prop].startsWith("moz-extension://")) {
+      object[prop] = this.extension.getURL(object[prop]);
     }
   }
 
