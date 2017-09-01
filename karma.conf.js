@@ -1,16 +1,12 @@
-// Karma configuration
-// Generated on Thu Jul 20 2017 17:09:01 GMT-0400 (EDT)
+const path = require("path");
 
 module.exports = function(config) {
   config.set({
     singleRun: !config.tdd,
     failOnEmptyTestSuite: false,
     browsers: ["Firefox"],
-    frameworks: ["mocha"],
-    files: [
-      "experiment/test/**/*.js",
-      "extension/test/**/*.js"
-    ],
+    frameworks: ["mocha", "sinon", "chai"],
+    files: [path.resolve(__dirname, "test/unit/unit-entry.js")],
     reporters: ["mocha", "coverage"],
     coverageReporter: {
       dir: "logs/coverage",
@@ -29,7 +25,29 @@ module.exports = function(config) {
         {type: "text-summary", subdir: ".", file: "text-summary.txt"}
       ]
     },
-    colors: true,
-    logLevel: config.LOG_INFO
+    preprocessors: {"test/unit/**/*.js": ["webpack", "sourcemap"]},
+    webpack: {
+      devtool: "inline-source-map",
+      resolve: {
+        extensions: ["test.js"],
+        modules: [__dirname]
+      },
+      module: {
+        rules: [
+          {
+            enforce: "post",
+            test: /\.js?$/,
+            loader: "istanbul-instrumenter-loader",
+            include: [__dirname],
+            exclude: [
+              path.resolve("test/"),
+              path.resolve("node_modules/")
+            ]
+          }
+        ]
+      }
+    },
+    webpackMiddleware: {noInfo: true},
+    colors: true
   });
 };

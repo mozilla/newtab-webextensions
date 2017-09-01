@@ -4,8 +4,8 @@
 "use strict";
 
 const {utils: Cu} = Components;
-const {SectionsManager} = Cu.import("resource://activity-stream/lib/SectionsManager.jsm", {});
-const {EventManager} = Cu.import("resource://gre/modules/ExtensionCommon.jsm", {});
+Cu.import("resource://activity-stream/lib/SectionsManager.jsm");
+Cu.import("resource://gre/modules/ExtensionCommon.jsm");
 
 // Give ActivityStream actions names that are more consistent with webextension
 // event names. Actions added here must also be added to the schema.
@@ -24,7 +24,7 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
     for (const prop in manifestOptions) {
       // Necessary to avoid overwriting default values with null if no option is
       // provided in the manifest
-      if (manifestOptions[prop] === null) { manifestOptions[prop] = undefined; }
+      if (manifestOptions[prop] === null) { delete manifestOptions[prop]; }
     }
 
     this.sectionOptions = Object.assign({
@@ -36,10 +36,7 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
         "Separator",
         "BlockUrl"
       ],
-      emptyState: {
-        message: {defaultMessage: "Loading"},
-        icon: "check"
-      }
+      emptyState: {message: "Loading"}
     }, manifestOptions);
 
     this.wrapExtensionUrl(this.sectionOptions, "icon");
@@ -60,12 +57,11 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
     const id = this.extension.id;
     const options = this.sectionOptions;
 
-    const updateSection = () => SectionsManager.sections.has(id) &&
-      SectionsManager.updateSection(id, options, true);
-
     // If we dynamically update a section option, propagate the change to
     // Activity Stream
-    const onUpdateOption = () => SectionsManager.onceInitialized(updateSection);
+    const onUpdateOption = () =>
+      SectionsManager.sections.has(id) &&
+      SectionsManager.updateSection(id, options, true);
 
     const newTabSection = {
       setTitle(title) {
@@ -74,7 +70,7 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
       },
 
       setIcon(icon) {
-        options.icons = icon;
+        options.icon = icon;
         onUpdateOption();
       },
 
@@ -101,10 +97,8 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
       // ActivityStream is responsible for setting the `enabled` property based
       // on whether the user had hidden the extension in the previous session.
       enable() {
-        SectionsManager.onceInitialized(() => {
-          SectionsManager.addSection(id, options);
-          SectionsManager.enableSection(id);
-        });
+        SectionsManager.addSection(id, options);
+        SectionsManager.enableSection(id);
       },
 
       disable() {
@@ -189,3 +183,7 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
     return {newTabSection};
   }
 }
+
+this.ActivityStreamActions = ActivityStreamActions;
+this.API = API;
+this.EXPORTED_SYMBOLS = ["ActivityStreamActions", "API"];
