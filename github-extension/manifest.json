@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "GitHub Section Extension",
+  "version": "1.0",
+  "description": "This is a description.",
+  "permissions": [
+    "experiments.newTabSection",
+    "webRequest",
+    "storage",
+    "https://api.github.com/*"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "web_accessible_resources": [
+    "github-icon.png"
+  ],
+  "new_tab_section_options": {
+    "title": "GitHub",
+    "maxRows": 1,
+    "icon": "github-icon.png",
+    "emptyState": {
+      "message": "Cupcake ipsum dolor sit amet caramels caramels. Powder jelly beans tart. Tootsie roll sesame snaps marzipan brownie jujubes. Lollipop jelly-o gingerbread.",
+      "icon": "check"
+    }
+  }
+}
