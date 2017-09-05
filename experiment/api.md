@@ -54,4 +54,4 @@ description | string | true | The body text of the card.
 hostname | string | true | The hostname to display above the title.
 type | string | true | The context label to display at the bottom of the card.
 image | string | true | A url for the card image.
-context_menu_options | array[string] | true | The context menu options for the card.
+contextMenuOptions | array[string] | true | The context menu options for the card.
