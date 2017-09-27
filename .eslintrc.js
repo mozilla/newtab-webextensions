@@ -12,7 +12,8 @@ module.exports = {
     "sinon": true,
     "browser": true,
     "API": true,
-    "ExtensionAPI": true
+    "ExtensionAPI": true,
+    "EventManager": true
   },
   "plugins": [
     "json",
