@@ -112,7 +112,7 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
       },
 
       // Fired when the section is enabled
-      onInitialized: new EventManager(context, "newTabSection.onInitialized", fire => {
+      onInitialized: new ExtensionCommon.EventManager(context, "newTabSection.onInitialized", fire => {
         // Either SectionsManager gets (re-)initialised with the section already
         // registered and enabled, or the section gets enabled through user action.
         const initListener = () =>
@@ -136,7 +136,7 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
       }).api(),
 
       // Fired when the section is disabled
-      onUninitialized: new EventManager(context, "newTabSection.onUninitialized", fire => {
+      onUninitialized: new ExtensionCommon.EventManager(context, "newTabSection.onUninitialized", fire => {
         // Either SectionsManager gets uninitialised or the section gets
         // disabled through user action.
         const uninitListener = () => fire.async();
@@ -153,7 +153,7 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
       }).api(),
 
       // All actions event
-      onAction: new EventManager(context, "newTabSection.onAction", fire => {
+      onAction: new ExtensionCommon.EventManager(context, "newTabSection.onAction", fire => {
         const listener = (event, type, data) =>
           fire.async(ActivityStreamActions[type], data);
         SectionsManager.on(SectionsManager.ACTION_DISPATCHED, listener);
@@ -165,7 +165,7 @@ class API extends ExtensionAPI { // eslint-disable-line no-unused-vars
     // Constructs an EventManager for a single action
     const ActionEventManagerFactory = action => {
       const key = `newTabSection.on${ActivityStreamActions[action]}`;
-      return new EventManager(context, key, fire => {
+      return new ExtensionCommon.EventManager(context, key, fire => {
         const listener = (event, type, data) =>
           type === action && fire.async(data);
         SectionsManager.on(SectionsManager.ACTION_DISPATCHED, listener);
